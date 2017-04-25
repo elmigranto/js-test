@@ -1,11 +1,21 @@
 'use strict';
 
+// DO NOT CHANGE THIS FILE!
+//
+// Unless you do have a good reason,
+// then make a change and describe the reason below.
+
+const deepFreeze = require('deep-freeze');
 const task = require('../src/task');
 
 describe('task', () => {
+  // Write a function that will return *new object*
+  // with keys modified as follows:
+  //   - no key starts with "$";
+  //   - no key contains "." symbol (it is replaced with "(dot)").
   it('.escapeKeys() removes starting "$" and  replaces "." with (dot)', () => {
     const date = new Date();
-    const object = {
+    const object = deepFreeze({
       $set: {
         letsHaveSommeInnerObjects: {$with$Dollars: '$$$'},
         '$.some.dots': date,
@@ -20,7 +30,7 @@ describe('task', () => {
 
       $update$me$: {},
       h$e$h$e$: null
-    };
+    });
 
     expect(task.escapeKeys(object)).to.eql({
       set: {
@@ -35,8 +45,10 @@ describe('task', () => {
     });
   });
 
-  it('.mondays() returns all mondays in 2017 starting from 20-th of Februay', () => {
-    expect(Array.from(task.mondays('20 Feb 2017'))).to.eql([
+  // Use existing classes.
+  // Optionally, modify them and add related methods with tests.
+  it('.mondays() returns all mondays since the given date in that year', () => {
+    expect(Array.from(task.mondays('19 Feb 2017'))).to.eql([
       '20 Feb 2017',
       '27 Feb 2017',
       '06 Mar 2017',
