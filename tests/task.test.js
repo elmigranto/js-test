@@ -48,7 +48,7 @@ describe('task', () => {
   // Use existing classes.
   // Optionally, modify them and add related methods with tests.
   it('.mondays() returns all mondays since the given date in that year', () => {
-    expect(Array.from(task.mondays('19 Feb 2017'))).to.eql([
+    expect(task.mondays('19 Feb 2017')).to.eql([
       '20 Feb 2017',
       '27 Feb 2017',
       '06 Mar 2017',
