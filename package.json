@@ -1,0 +1,34 @@
+{
+  "name": "Hire",
+  "version": "0.0.1",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "pretest": "npm run lint",
+    "start": "node index.js",
+    "startw": "nodemon --watch src/ --watch index.js --watch config.js --exec 'npm start'",
+    "test": "LOG_LEVEL=FATAL mocha --bail --no-exit --throw-deprecation tests/helper.js 'tests/**/*.test.js'",
+    "testw": "nodemon --watch src/ --watch tests/ --watch config.js --exec 'npm test'",
+    "coverage": "LOG_LEVEL=FATAL istanbul cover _mocha -- --bail --no-exit --throw-deprecation tests/helper.js 'tests/**/*.test.js' && istanbul report",
+    "lint": "eslint src/ tests/ index.js config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/REPLACE_THIS_WITH_YOUR_THING.git"
+  },
+  "license": "Trade Secret",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.8.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.1.2",
+    "nodemon": "^1.11.0",
+    "testdouble": "^2.1.2"
+  },
+  "dependencies": {
+    "deep-freeze": "0.0.1",
+    "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13",
+    "ms": "^1.0.0"
+  }
+}
