@@ -5,7 +5,7 @@
 // Unless you do have a good reason,
 // then make a change and describe the reason below.
 
-const deepFreeze = require('deep-freeze');
+const {deepFreeze} = require('../src/utils');
 const task = require('../src/task');
 
 describe('task', () => {

@@ -1,6 +1,7 @@
 'use strict';
 
 const util = require('util');
+const deepFreeze = require('deep-freeze-strict');
 
 const debugInspect = (what, {json = false} = {}) => {
   return json
@@ -19,5 +20,6 @@ const debugPrint = (what, {
 module.exports = {
   debugInspect,
   debugPrint,
+  deepFreeze,
   hasOwnProperty: (obj, prop) => Object.hasOwnProperty.call(obj, prop)
 };

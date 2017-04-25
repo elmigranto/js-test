@@ -1,7 +1,6 @@
 'use strict';
 
-const deepFreeze = require('deep-freeze');
-const {debugPrint} = require('./src/utils');
+const {deepFreeze, debugPrint} = require('./src/utils');
 
 module.exports = deepFreeze({
 });
