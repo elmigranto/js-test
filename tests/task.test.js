@@ -5,6 +5,7 @@
 // Unless you do have a good reason,
 // then make a change and describe the reason below.
 
+const crypto = require('crypto');
 const {deepFreeze} = require('../src/utils');
 const task = require('../src/task');
 
@@ -101,5 +102,58 @@ describe('task', () => {
     it('returns [] if no mondays left in this year', () => {
       expect(task.mondays('26 dec 2017')).to.eql([]);
     });
+  });
+
+  // Do not use any 3-rd party libs in this one.
+  describe('.asyncMap()', () => {
+    it('invokes function for each input in series and returns results', (done) => {
+      const inputs = [2, 4, 6, 8, 10];
+      const fn = (nBytes, callback) => {
+        crypto.randomBytes(nBytes, (err, buf) => {
+          return err
+            ? callback(err)
+            : setTimeout(callback, 5, null, buf, Date.now());
+        });
+      };
+
+      task.asyncMap(fn, inputs, (err, results) => {
+        expect(err).to.be.null;
+        expect(results).to.have.length(results.length);
+        expect(results.every(([buf, timestamp], idx) => {
+          return (buf instanceof Buffer)
+            && (buf.length === inputs[idx])
+            && (timestamp + 5 <= (timestamp[idx + 1] || Infinity));
+        })).to.be.true;
+
+        done();
+      });
+    });
+
+    it('correctly invokes callback on next tick if inputs array is empty', (done) => {
+      const fn = td.function();
+      let sameTick = true;
+
+      task.asyncMap(fn, [], (err, results) => {
+        expect(err).to.be.null;
+        expect(results).to.be.instanceof(Array);
+        expect(results).to.have.length(0);
+        expect(sameTick).to.be.false;
+        td.assert(fn).callCount(0);
+        done();
+      });
+
+      sameTick = false;
+    });
+  });
+
+  // For bonus points, come up with tests and implementation
+  // of .asyncMap() that executes function runs in parallel.
+  // (Note: no third party library may be used.)
+  //
+  // If you want, feel free to:
+  //   - use Promises or async/await;
+  //   - add an ability to limit number of concurrent invokations.
+  describe('.asyncParallelMap()', () => {
+    it('bouns points…');
   });
 });
